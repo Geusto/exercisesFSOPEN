@@ -1,0 +1,6 @@
+sequenceDiagram
+  participant a as Browser
+  participant b as Server
+  a->>b: HTTP POST {content: 'new note', date: '28/07/2024'} at https://studies.cs.helsinki.fi/exampleapp/new_note_spa with content type json
+  b->>a: Respond with 201 code
+  
