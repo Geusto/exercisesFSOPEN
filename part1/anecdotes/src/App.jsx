@@ -19,11 +19,20 @@ const App = () => {
   const sizeAnecdotes = anecdotes.length;
   const [points, setPoints] = useState(Array(sizeAnecdotes).fill(0));
   const [selected, setSelected] = useState(0);
+  const [score, setScore] = useState(0);
   
   const handleVote = () => {
     const newPoints = [...points];
     newPoints[selected] += 1;
     setPoints(newPoints);
+
+    let mayor = newPoints[0]
+    for(let i of newPoints){
+      if(newPoints[i] > newPoints){
+        mayor = newPoints[i]
+        setScore(mayor)
+      }
+    }
   };
 
   const handleNextAnecdote = () => {
@@ -36,6 +45,7 @@ const App = () => {
       <p>has {points[selected]} votes</p>
       <Button text='vote' handleClick={handleVote} />
       <Button text='next anecdote' handleClick={handleNextAnecdote} />
+      <p>{score}</p>
     </>
   );
 };
