@@ -1,6 +1,8 @@
 import { useState } from 'react'
 
-const Button = ({text, handleClick}) => <button onClick={handleClick}>{text}</button>
+const Button = ({ text, handleClick }) => (
+  <button onClick={handleClick}>{text}</button>
+);
 
 const App = () => {
   const anecdotes = [
@@ -12,19 +14,30 @@ const App = () => {
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
-  ]
-
-  const sizeAnecdotes = anecdotes.length
-
+  ];
   
-  const [selected, setSelected] = useState(0)
+  const sizeAnecdotes = anecdotes.length;
+  const [points, setPoints] = useState(Array(sizeAnecdotes).fill(0));
+  const [selected, setSelected] = useState(0);
   
+  const handleVote = () => {
+    const newPoints = [...points];
+    newPoints[selected] += 1;
+    setPoints(newPoints);
+  };
+
+  const handleNextAnecdote = () => {
+    setSelected(Math.floor(Math.random() * sizeAnecdotes));
+  };
+
   return (
     <>
       <p>{anecdotes[selected]}</p>
-      <Button text='hola' handleClick={()=>setSelected(Math.floor(Math.random()*sizeAnecdotes))}  />
+      <p>has {points[selected]} votes</p>
+      <Button text='vote' handleClick={handleVote} />
+      <Button text='next anecdote' handleClick={handleNextAnecdote} />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
